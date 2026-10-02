@@ -1,0 +1,1 @@
+MONGODB_URI=mongodb+srv://resilio:<db_password>@cluster0.8aptg5y.mongodb.net/?retryWrites=true&w=majority&appName=Cluster

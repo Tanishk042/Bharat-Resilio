@@ -1,0 +1,19 @@
+FROM python:3.12-slim
+
+WORKDIR /service
+
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY app ./app
+COPY models ./models
+COPY training ./training
+
+ENV PYTHONPATH=/service
+ENV ML_PORT=8000
+
+EXPOSE 8000
+
+RUN mkdir -p /service/weights
+
+CMD ["python", "-m", "uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]

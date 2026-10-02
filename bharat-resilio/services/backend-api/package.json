@@ -1,0 +1,19 @@
+{
+  "name": "@resilio/backend-api",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "start": "node dist/services/backend-api/src/cli.js",
+    "test": "node --test dist/services/backend-api/tests/*.test.js"
+  },
+  "dependencies": {
+    "@resilio/shared-types": "1.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.2",
+    "@types/node": "^22.18.6"
+  }
+}

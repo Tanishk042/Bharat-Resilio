@@ -1,0 +1,13 @@
+node_modules
+**/dist
+docs
+infra
+.git
+**/*.pyc
+**/__pycache__
+.mesh-data
+data
+services/ml-models/weights
+services/ml-models/models
+services/ml-models/training
+services/ml-models/data

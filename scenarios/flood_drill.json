@@ -1,0 +1,132 @@
+{
+  "scenario_id": "flood_drill_001",
+  "name": "Urban Flood Response Drill",
+  "description": "End-to-end simulation of urban flood disaster response",
+  "duration_seconds": 300,
+  "zones": [
+    {
+      "zone_id": "Zone A",
+      "location": "Downtown District",
+      "initial_population": 50000,
+      "evacuation_routes": ["Safe Zone 1", "Safe Zone 2"]
+    },
+    {
+      "zone_id": "Zone B",
+      "location": "Riverside District",
+      "initial_population": 30000,
+      "evacuation_routes": ["Safe Zone 2"]
+    },
+    {
+      "zone_id": "Zone C",
+      "location": "Industrial District",
+      "initial_population": 20000,
+      "evacuation_routes": ["Safe Zone 3"]
+    }
+  ],
+  "timeline": [
+    {
+      "time": 0,
+      "event": "scenario_start",
+      "description": "Scenario initialization"
+    },
+    {
+      "time": 10,
+      "event": "hazard_detection",
+      "type": "flood",
+      "zone": "Zone A",
+      "severity": 7,
+      "tier": "Warning",
+      "description": "Acoustic sensor detects rising water levels"
+    },
+    {
+      "time": 20,
+      "event": "citizen_report",
+      "zone": "Zone A",
+      "text": "Water rising on Main Street, cars submerged",
+      "description": "Citizen submits incident report"
+    },
+    {
+      "time": 30,
+      "event": "hazard_detection",
+      "type": "flood",
+      "zone": "Zone B",
+      "severity": 8,
+      "tier": "Warning",
+      "description": "Secondary flood detected in Riverside District"
+    },
+    {
+      "time": 40,
+      "event": "consensus_verification",
+      "incident_id": "incident_001",
+      "description": "Oracle consensus verifies incident with sensor corroboration"
+    },
+    {
+      "time": 50,
+      "event": "guidance_generation",
+      "hazard_type": "flood",
+      "tier": "Warning",
+      "zone": "Zone A",
+      "description": "RAG generates evacuation guidance"
+    },
+    {
+      "time": 60,
+      "event": "routing_calculation",
+      "from": "Zone A",
+      "to": "Safe Zone 1",
+      "mode": "gnn",
+      "description": "GNN calculates optimal evacuation route"
+    },
+    {
+      "time": 70,
+      "event": "mesh_sync",
+      "description": "Mesh nodes sync incident data via CRDT"
+    },
+    {
+      "time": 80,
+      "event": "hazard_escalation",
+      "zone": "Zone A",
+      "severity": 9,
+      "tier": "Catastrophic",
+      "description": "Flood severity escalates to catastrophic"
+    },
+    {
+      "time": 90,
+      "event": "routing_fallback",
+      "from": "Zone A",
+      "to": "Safe Zone 2",
+      "mode": "fallback",
+      "description": "Sensor density drops, routing falls back to A*"
+    },
+    {
+      "time": 100,
+      "event": "failover_trigger",
+      "service": "hazard_engine",
+      "description": "Primary hazard engine fails, failover activates"
+    },
+    {
+      "event": "failover_recovery",
+      "service": "hazard_engine",
+      "description": "Primary recovers, traffic reverts"
+    },
+    {
+      "time": 120,
+      "event": "evacuation_complete",
+      "zone": "Zone A",
+      "evacuated": 45000,
+      "description": "90% of Zone A evacuated"
+    },
+    {
+      "time": 150,
+      "event": "scenario_end",
+      "description": "Scenario completion"
+    }
+  ],
+  "expected_outcomes": {
+    "incidents_verified": 2,
+    "evacuation_routes_calculated": 2,
+    "guidance_generated": 2,
+    "mesh_sync_events": 5,
+    "failover_events": 1,
+    "total_evacuated": 95000
+  }
+}

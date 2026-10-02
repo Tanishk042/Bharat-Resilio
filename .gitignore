@@ -1,0 +1,50 @@
+# dependencies
+node_modules/
+bharat-resilio/node_modules/
+
+# next.js build output
+.next/
+out/
+build/
+
+# env / secrets — NEVER commit real credentials
+.env
+.env.local
+.env.*.local
+.env.production
+.env.development
+
+# compiled / generated
+dist/
+*.tsbuildinfo
+*.map
+
+# python
+__pycache__/
+*.pyc
+*.pyo
+
+# ml model artifacts / weights
+*.pth
+*.h5
+*.joblib
+*.onnx
+*.pt
+*.bin
+bharat-resilio/services/ml-models/weights/
+bharat-resilio/services/ml-models/models/
+
+# mesh node runtime identity (private keys)
+bharat-resilio/services/mesh-node/.mesh-data/
+*.mesh-data/
+
+# logs
+*.log
+/tmp/
+
+# macOS
+.DS_Store
+
+# unrelated legacy projects in the workspace root
+ledger/
+infra/

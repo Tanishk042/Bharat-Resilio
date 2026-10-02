@@ -1,0 +1,28 @@
+{
+  "name": "bharat-resilio",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "packages/*",
+    "services/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "build:types": "npm run build -w packages/shared-types",
+    "build:proto": "npm run build -w packages/proto",
+    "build:mesh": "npm run build -w services/mesh-node",
+    "build:chain": "npm run build -w services/chain",
+    "build:api": "npm run build -w services/backend-api",
+    "build": "npm run build:types && npm run build:proto && npm run build:mesh && npm run build:chain && npm run build:api",
+    "test:mesh": "npm run test -w services/mesh-node",
+    "test:chain": "npm run test -w services/chain",
+    "test": "npm run test:mesh && npm run test:chain",
+    "start:mesh": "npm run start -w services/mesh-node",
+    "start:chain": "npm run start -w services/chain",
+    "start:api": "npm run start -w services/backend-api"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.2",
+    "@types/node": "^22.18.6"
+  }
+}

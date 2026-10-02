@@ -1,0 +1,128 @@
+# Resilio – full-stack deploy (frontend + oracle + ML + 2 mesh nodes + chain)
+name: resilio
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: docker/web.Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      SERVICE_API_URL: http://api:8080
+      SERVICE_ML_URL: http://ml:8000
+      SERVICE_MESH_A_URL: http://mesh-a:8101
+      SERVICE_MESH_B_URL: http://mesh-b:8102
+      SERVICE_CHAIN_URL: http://chain:8201
+    depends_on:
+      ml:
+        condition: service_healthy
+      api:
+        condition: service_healthy
+      mesh-a:
+        condition: service_started
+      chain:
+        condition: service_started
+    restart: unless-stopped
+
+  ml:
+    build: bharat-resilio/services/ml-models
+    ports:
+      - "8000:8000"
+    environment:
+      ML_PORT: "8000"
+      CORS_ORIGINS: "*"
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - "import urllib.request,json; json.load(urllib.request.urlopen('http://127.0.0.1:8000/health'))"
+      interval: 15s
+      timeout: 10s
+      retries: 8
+      start_period: 20s
+    restart: unless-stopped
+
+  api:
+    build:
+      context: bharat-resilio
+      dockerfile: Dockerfile.services
+    command: ["node", "dist/services/backend-api/src/cli.js"]
+    ports:
+      - "8080:8080"
+    environment:
+      API_HOST: 0.0.0.0
+      API_PORT: "8080"
+      DATA_DIR: /data
+      ML_URL: http://ml:8000
+      MESH_URL: http://mesh-a:8101
+      CHAIN_URL: http://chain:8201
+      CORS_ORIGIN: "*"
+    volumes:
+      - resilio-data:/data
+    healthcheck:
+      test:
+        - CMD
+        - node
+        - -e
+        - "fetch('http://127.0.0.1:8080/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"
+      interval: 15s
+      timeout: 10s
+      retries: 8
+    restart: unless-stopped
+
+  mesh-a:
+    build:
+      context: bharat-resilio
+      dockerfile: Dockerfile.services
+    command: ["node", "dist/services/mesh-node/src/cli.js"]
+    ports:
+      - "8101:8101"
+    environment:
+      HOST: 0.0.0.0
+      MESH_PORT: "7100"
+      API_PORT: "8101"
+      NODE_ID: mesh-a
+      NODE_ROLE: authority
+      DATA_ROOT: /data
+      SEEDS: mesh-b:7101
+    volumes:
+      - resilio-data:/data
+    restart: unless-stopped
+
+  mesh-b:
+    build:
+      context: bharat-resilio
+      dockerfile: Dockerfile.services
+    command: ["node", "dist/services/mesh-node/src/cli.js"]
+    ports:
+      - "8102:8102"
+    environment:
+      HOST: 0.0.0.0
+      MESH_PORT: "7101"
+      API_PORT: "8102"
+      NODE_ID: mesh-b
+      NODE_ROLE: civilian
+      DATA_ROOT: /data
+      SEEDS: mesh-a:7100
+    volumes:
+      - resilio-data:/data
+    restart: unless-stopped
+
+  chain:
+    build:
+      context: bharat-resilio
+      dockerfile: Dockerfile.services
+    command: ["node", "dist/services/chain/src/cli.js"]
+    ports:
+      - "8201:8201"
+    environment:
+      HOST: 0.0.0.0
+      CHAIN_PORT: "9100"
+      API_PORT: "8201"
+      VALIDATORS: chain-a
+    restart: unless-stopped
+
+volumes:
+  resilio-data:

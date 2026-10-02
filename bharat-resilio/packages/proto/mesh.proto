@@ -1,0 +1,68 @@
+syntax = "proto3";
+
+package bharatresilio.mesh;
+
+message LamportClock {
+  uint64 counter = 1;
+  string node_id = 2;
+}
+
+message IncidentRecord {
+  string id = 1;
+  string kind = 2;
+  string location = 3;
+  uint32 severity = 4;
+  string description = 5;
+  string reporter_node_id = 6;
+  LamportClock updated_at = 7;
+}
+
+message RegistryEntry {
+  string node_id = 1;
+  string public_key = 2;
+  string role = 3;
+  bool authorized = 4;
+  LamportClock updated_at = 5;
+}
+
+message PeerAddress {
+  string node_id = 1;
+  string host = 2;
+  uint32 port = 3;
+  string role = 4;
+}
+
+message WireHeader {
+  string message_type = 1;
+  string sender_node_id = 2;
+  string sender_public_key = 3;
+  uint64 sequence = 4;
+  bytes signature = 5;
+}
+
+message HelloPayload {
+  string role = 1;
+  string host = 2;
+  uint32 port = 3;
+  repeated PeerAddress known_peers = 4;
+  repeated RegistryEntry registry = 5;
+}
+
+message PeerAnnouncePayload {
+  repeated PeerAddress peers = 1;
+}
+
+message IncidentUpsertPayload {
+  IncidentRecord incident = 1;
+}
+
+message RegistrySyncPayload {
+  repeated RegistryEntry entries = 1;
+}
+
+message StateSyncPayload {
+  repeated IncidentRecord incidents = 1;
+  repeated RegistryEntry registry = 2;
+  repeated PeerAddress peers = 3;
+  LamportClock lamport = 4;
+}

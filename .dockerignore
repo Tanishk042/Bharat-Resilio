@@ -1,0 +1,9 @@
+node_modules
+.next
+.dev
+.git
+*.log
+.DS_Store
+data
+bharat-resilio
+services/api_gateway

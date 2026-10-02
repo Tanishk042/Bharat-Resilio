@@ -1,0 +1,20 @@
+{
+  "name": "@resilio/mesh-node",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "start": "node dist/services/mesh-node/src/cli.js",
+    "test": "node --test dist/services/mesh-node/tests/*.test.js",
+    "test:all": "npm run build && node dist/services/mesh-node/tests/run-all.js"
+  },
+  "dependencies": {
+    "@resilio/shared-types": "1.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.2",
+    "@types/node": "^22.18.6"
+  }
+}

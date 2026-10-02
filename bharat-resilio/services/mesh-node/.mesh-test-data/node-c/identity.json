@@ -1,0 +1,5 @@
+{
+  "nodeId": "node-c",
+  "publicKeyPem": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEA3/lrubYqpcvKGTcOOs+RDW0lQxj56GNJvy4RNuJoN/Q=\n-----END PUBLIC KEY-----\n",
+  "privateKeyPem": "-----BEGIN PRIVATE KEY-----\nMC4CAQAwBQYDK2VwBCIEIJuWE0gzsjtwxfahEPdPUHC1XJm7IYN1QrbQBGOL43jG\n-----END PRIVATE KEY-----\n"
+}

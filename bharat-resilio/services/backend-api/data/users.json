@@ -1,0 +1,53 @@
+[
+  {
+    "id": "user-d538c792",
+    "role": "civilian",
+    "name": "Test User",
+    "email": "a@b.com",
+    "salt": "e89c393e72e0555e81daf41fb37fd4ac",
+    "hash": "7b18329a37423da707ce5d746a89f2e0e4cc0b87c1e98421c6087d972b44af2b",
+    "otp": "487410",
+    "otp_expires_at": 1788835711297,
+    "otp_verified": true
+  },
+  {
+    "id": "user-de506507",
+    "role": "civilian",
+    "name": "Test Civilian",
+    "email": "civ@test.in",
+    "salt": "8f7d94d3b8c9e72493f691e504184e2a",
+    "hash": "d8120344ac0125a3239513a92362b445d5e4604e81c4d811a94b0497a6ea81a4"
+  },
+  {
+    "id": "user-c75edca3",
+    "role": "donor",
+    "name": "Vikram",
+    "email": "vikram2@test.in",
+    "salt": "a771fdab5fa70facad251940d58e0e90",
+    "hash": "c84cc3d690a099bb101004cbe7d38fd7624c9b6d54ad2e808b1598d3c42316dc"
+  },
+  {
+    "id": "user-ac11c8c8",
+    "role": "civilian",
+    "name": "Aarav Sharma",
+    "email": "civilian@resilio.test",
+    "salt": "c555268ff4f0cee6c8d685e78473701f",
+    "hash": "80e4501411a763115ca57114b6844433110e7a310b417defaf6939267be0136d"
+  },
+  {
+    "id": "user-9d0b0a62",
+    "role": "donor",
+    "name": "Ananya Iyer",
+    "email": "donor@resilio.test",
+    "salt": "e811c7532846bcfc92e594127906c691",
+    "hash": "c5da740fd25f9a92b5af644fab264a39be6951cbcd785cbffb88aecb67cee245"
+  },
+  {
+    "id": "user-903df519",
+    "role": "ngo",
+    "name": "Neha Verma",
+    "email": "authority@resilio.test",
+    "salt": "aff66fadf61ddaa3f9c87c50cc709f2b",
+    "hash": "9f3e5e18e9de490a38014e163fa2c7e91f9afaa5d0fab49d9ccd2182684b47e5"
+  }
+]
